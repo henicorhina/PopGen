@@ -1,0 +1,303 @@
+#! /usr/bin/env python
+
+import math
+import random
+import matplotlib.pyplot as plt
+
+
+h = 40
+
+x1 = 0.5
+y1 = 0.5
+
+# This is for the simulation step
+
+x2 = 1.0 - x1
+y2 = 1.0 - y1
+#print x2
+#print y2
+
+# convert allele frequencies to haplotype frequencies
+x11 = x1 * y1
+x12 = x1 * y2
+x21 = x2 * y1
+x22 = x2 * y2
+#print x11
+#print x12
+#print x21
+#print x22
+	
+# brackets to break up the allele frequencies along a number line
+a = x11
+b = x11 + x12
+c = b + x21
+d = c + x22
+
+# our population of random samples
+pop = []
+	
+Lx11 = []
+Lx12 = []
+Lx21 = []
+Lx22 = []
+
+#randomizing the population with frequencies
+for x in range(h):
+	x = pop.append(random.random())
+	
+#print pop
+	
+# Taking each individual in the random population and assigning it to a haplotype.
+for y in pop:
+	if y <= a:
+		Lx11.append(y)
+	elif y <= b and y > a:
+		Lx12.append(y)
+	elif y <= c and y > b:
+		Lx21.append(y)
+	else:
+		Lx22.append(y)
+	
+#print Lx11
+#print Lx12
+#print Lx21
+#print Lx22
+	
+# length of the Lx strings, which we then use to calculate haplotypes.
+p11 = len(Lx11)
+p12 = len(Lx12)
+p21 = len(Lx21)
+p22 = len(Lx22)
+	
+#print p11
+#print p12
+#print p21
+#print p22
+	
+#return p11
+#return p12
+#return p21
+#return p22
+
+# calculate haplotype frequencies
+h11 = float(p11) / h
+h12 = float(p12) / h
+h21 = float(p21) / h
+h22 = float(p22) / h
+
+#print h11
+#print h12
+#print h21
+#print h22
+
+# now lets calculate the D value
+D1 = (h11 * h22) - (h12 * h21)
+
+# now lets calculate the Dmax
+if D1 > 0.0:
+	Dmax = min(h12,h21) + 0.0000000000000001
+else:
+	Dmax = min(h11,h22) + 0.0000000000000001
+	
+#print "Dmax = ", Dmax
+	
+# aaaaand, D prime!
+Dp1 = float(D1) / Dmax
+
+p1 = h11 + h12
+p2 = h21 + h22
+q1 = h11 + h21
+q2 = h12 + h22
+	
+r = D1 / (math.sqrt(p1 * p2 * q1 * q2))
+	
+# print r
+	
+r21 = r ** 2
+
+pop1 = [p11, p12, p21, p22]
+
+#__________________________________________________________________________________
+
+
+x1 = 0.9
+y1 = 0.1
+
+
+# This is for the simulation step
+
+x2 = 1.0 - x1
+y2 = 1.0 - y1
+#print x2
+#print y2
+
+# convert allele frequencies to haplotype frequencies
+x11 = x1 * y1
+x12 = x1 * y2
+x21 = x2 * y1
+x22 = x2 * y2
+#print x11
+#print x12
+#print x21
+#print x22
+	
+# brackets to break up the allele frequencies along a number line
+a = x11
+b = x11 + x12
+c = b + x21
+d = c + x22
+
+# our population of random samples
+pop = []
+	
+Lx11 = []
+Lx12 = []
+Lx21 = []
+Lx22 = []
+
+#randomizing the population with frequencies
+for x in range(h):
+	x = pop.append(random.random())
+	
+#print pop
+	
+# Taking each individual in the random population and assigning it to a haplotype.
+for y in pop:
+	if y <= a:
+		Lx11.append(y)
+	elif y <= b and y > a:
+		Lx12.append(y)
+	elif y <= c and y > b:
+		Lx21.append(y)
+	else:
+		Lx22.append(y)
+	
+#print Lx11
+#print Lx12
+#print Lx21
+#print Lx22
+	
+# length of the Lx strings, which we then use to calculate haplotypes.
+p11 = len(Lx11)
+p12 = len(Lx12)
+p21 = len(Lx21)
+p22 = len(Lx22)
+	
+#print p11
+#print p12
+#print p21
+#print p22
+	
+#return p11
+#return p12
+#return p21
+#return p22
+
+# calculate haplotype frequencies
+h11 = float(p11) / h
+h12 = float(p12) / h
+h21 = float(p21) / h
+h22 = float(p22) / h
+
+#print h11
+#print h12
+#print h21
+#print h22
+
+# now lets calculate the D value
+D2 = (h11 * h22) - (h12 * h21)
+
+# now lets calculate the Dmax
+if D2 > 0.0:
+	Dmax = min(h12,h21) + 0.0000000000000001
+else:
+	Dmax = min(h11,h22) + 0.0000000000000001
+	
+#print "Dmax = ", Dmax
+	
+# aaaaand, D prime!
+Dp2 = float(D2) / Dmax
+
+p1 = h11 + h12
+p2 = h21 + h22
+q1 = h11 + h21
+q2 = h12 + h22
+	
+r = D2 / (math.sqrt(p1 * p2 * q1 * q2))
+	
+# print r
+	
+r22 = r ** 2
+
+pop2 = [p11, p12, p21, p22]
+
+#__________________________________________________________________________________
+
+
+# this takes the lists of the raw population from populations 1 and 2 and combines them
+# "pcom" is the combined population
+pcom11 = pop1[0] + pop2[0]
+pcom12 = pop1[1] + pop2[1]
+pcom21 = pop1[2] + pop2[2]
+pcom22 = pop1[3] + pop2[3]
+
+#print pcom11
+#print pcom12
+#print pcom21
+#print pcom22
+
+# the new population size
+f = h * 2.0
+
+#print f
+
+# calculate haplotype frequencies
+h11 = float(pcom11) / f
+h12 = float(pcom12) / f
+h21 = float(pcom21) / f
+h22 = float(pcom22) / f
+	
+#print h11
+#print h12
+#print h21
+#print h22
+	
+# now lets calculate the D value
+combD = (h11 * h22) - (h12 * h21)
+	
+# now lets calculate the Dmax
+if combD > 0.0:
+	Dmax = min(h12,h21) + 0.0000000000000001
+else:
+	Dmax = min(h11,h22) + 0.0000000000000001
+	
+#print "Dmax = ", Dmax
+	
+# aaaaand, D prime!
+combDp = float(combD) / Dmax
+
+p1 = h11 + h12
+p2 = h21 + h22
+q1 = h11 + h21
+q2 = h12 + h22
+
+r = combD / (math.sqrt(p1 * p2 * q1 * q2))
+	
+# print r
+	
+combr2 = r ** 2
+
+allD = [D1, D2, combD]
+allDp = [Dp1, Dp2, combDp]
+allr = [r21, r22, combr2]
+
+
+plt.plot(allD)
+plt.plot(allDp)
+plt.plot(allr)
+plt.xlabel("LD")
+plt.ylabel("value")
+plt.show()
+
+
+	
